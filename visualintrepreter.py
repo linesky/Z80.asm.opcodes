@@ -41,21 +41,25 @@ for ooo in range(len(optc)):
             s2="    "*(c+1)
             ss2="    "*(c+2)
             s1=s2+"#"+s1+"\n"
-            s4=s1+s2+"if value==0x"+sp[c]+":\n"+ss2+"print(\""+ssp[1]+"\")\n"
+            s4=s1+s2+"if value==0x"+sp[c]+":\n"+ss2
             n4=len(s4)
             nn=code.find(s1)
+            
+            
             if nn<0:
                 
                 s3=code[:m]
                 
                 
                 s3=s3+s4
+                if len(sp)-1==c:
+                    s3=s3+"print(\""+ssp[1]+"\")\n"
                 s3=s3+code[m:]
                 code=s3
                 m=m+n4
             else:
                 m=nn+n4+1
-
+            
         
 try:
     f1=open(files+".dat","w")
