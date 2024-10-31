@@ -11,6 +11,8 @@ except:
     aa=0
 sp=[]
 spsp=""
+tt=0
+ttt=0
 optc=optcode.split("\n")
 for ooo in range(len(optc)):
     lines=optc[ooo]
@@ -19,6 +21,10 @@ for ooo in range(len(optc)):
         ttrue=False
     else:
         ssp=lines.split("|")
+        if len(ssp)>1:
+            tt=ssp[1].find("0x0")
+            
+                
         spsp=""
         spa=ssp[0]
         sp=[]
@@ -44,21 +50,31 @@ for ooo in range(len(optc)):
             s4=s1+s2+"if value==0x"+sp[c]+":\n"+ss2
             n4=len(s4)
             nn=code.find(s1)
+            if tt>0:
+               if len(sp)>2:
+                   if sp[len(sp)-2]=="00":
+                       ttt=len(sp)-3
+                   else:
+                       ttt=len(sp)-2
+            else:
+                ttt=len(sp)-1
+
             
             
-            if nn<0:
+            if nn<0 and c<=ttt:
                 
                 s3=code[:m]
                 
                 
                 s3=s3+s4
-                if len(sp)-1==c:
+                if c==ttt:
                     s3=s3+"print(\""+ssp[1]+"\")\n"
                 s3=s3+code[m:]
                 code=s3
                 m=m+n4
             else:
-                m=nn+n4+1
+                if c<=ttt:
+                    m=nn+n4+1
             
         
 try:
